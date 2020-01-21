@@ -37,8 +37,9 @@ const facturas = () => {
             <TableCell># Factura</TableCell>
             <TableCell align="right">Cliente</TableCell>
             <TableCell align="right">Fecha de emisión</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell align="right">Fecha de entrega</TableCell>
+            <TableCell align="right">Fecha de pago</TableCell>
+            <TableCell align="right">Monto</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -48,9 +49,10 @@ const facturas = () => {
                 {row.numerofactura}
               </TableCell>
               <TableCell align="right">{row.cliente}</TableCell>
-              <TableCell align="right">{moment().format('YYYY-MM-DD HH:mm')}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{moment(row.fechaemision).format('DD/MM/YYYY')}</TableCell>
+              <TableCell align="right">{moment(row.fechaentrega).format('DD/MM/YYYY')}</TableCell>
+              <TableCell align="right">{moment(row.fechapago).format('DD/MM/YYYY')}</TableCell>
+              <TableCell align="right">{row.monto}</TableCell>
             </TableRow>
           ))}
         </TableBody>
