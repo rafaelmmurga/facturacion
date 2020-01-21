@@ -2,7 +2,7 @@ const pool = require( '../dbpostgress' );
 
 const login = async({password}) => {
   try {
-    const res = await pool.query('SELECT * FROM facturacion.usuarios ORDER BY id ASC')
+    const res = await pool.query('SELECT * FROM usuarios ORDER BY id ASC')
     if(res.rows.length > 0){
       return {"message": "ok"}
     }
