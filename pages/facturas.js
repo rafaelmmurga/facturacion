@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-const facturas = () => {
+const Facturas = () => {
   const classes = useStyles();
 
   const [facturas,setFacturas] = useState([])
@@ -61,4 +61,4 @@ const facturas = () => {
   );
 }
 
-export default facturas
+export default Facturas
