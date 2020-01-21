@@ -1,0 +1,17 @@
+Facturas
+#factura
+cliente
+fecha de emisión
+fecha de entrega
+fecha de pago
+forma de pago
+# cheque
+#recibo
+Observaciones
+
+Funciones
+-Guardar(valiar si ya existe)
+-Consultar todo
+-Consultar por cliente
+-Consultar por # de factura
+-Login

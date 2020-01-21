@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "package.json", "use": "@now/next" }
+  ],
+  "routes": [
+    {
+      "src": "/api/facturas",
+      "dest": "/server.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/api/login",
+      "dest": "/server.js",
+      "methods": ["GET"]
+    }
+  ]
+}
