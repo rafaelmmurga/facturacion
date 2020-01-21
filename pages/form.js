@@ -132,8 +132,9 @@ export default function form() {
       })
       const resp = await res.json()
       let {message} = resp
-      alert(message)
+      console.log(message)
       if(message == "ok"){
+        alert("Factura guardada")
         setFactura({
           cliente:"",
           fechaemision:"",fechaentrega:"",fechapago:"",
@@ -143,7 +144,9 @@ export default function form() {
         setMostrarFactura(false)
       }
     }
-    alert("te faltan datos")
+    else {
+      alert("te faltan datos")
+    }
   }
 
   return (

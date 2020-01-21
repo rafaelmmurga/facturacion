@@ -1,11 +1,9 @@
-const db = require( '../dbmysql' );
+const pool = require( '../dbpostgress' );
 
 const login = async({password}) => {
   try {
-    const res = await db.query( 
-      `SELECT * FROM usuarios WHERE password = '${password}'` 
-    );
-    if(res.length > 0){
+    const res = await pool.query('SELECT * FROM facturacion.usuarios ORDER BY id ASC')
+    if(res.rows.length > 0){
       return {"message": "ok"}
     }
     else{
@@ -20,30 +18,17 @@ const login = async({password}) => {
 }
 
 const getfacturas = async() => {
-  try {
-    const res = await db.query( 
-      `SELECT 
-      numerofactura,cliente,fechaemision,fechaentrega,fechapago,
-      formapago,cheque,recibo,observaciones 
-      FROM facturas` 
-    );
-    return res
-  } catch ( err ) {
-    console.log("ERROR:",err)
-  } finally {
-    //await db.close();
-  }
+  const res = await pool.query('SELECT * FROM facturacion.facturas ORDER BY fechaemision DESC')
+  return res.rows
 }
 
 const searchfactura = async({id}) => {
   try {
-    const res = await db.query( 
-      `SELECT 
-      numerofactura,cliente,fechaemision,fechaentrega,fechapago,
-      formapago,cheque,recibo,observaciones 
-      FROM facturas WHERE numerofactura = '${id}'` 
-    );
-    return res
+    const res = await pool.query(`SELECT 
+    numerofactura,cliente,fechaemision,fechaentrega,fechapago,
+    formapago,cheque,recibo,observaciones 
+    FROM facturacion.facturas WHERE numerofactura = '${id}'`)
+    return res.rows
   } catch ( err ) {
     console.log("ERROR:",err)
   } finally {
@@ -53,13 +38,11 @@ const searchfactura = async({id}) => {
 
 const validarFactura = async(numerofactura) => {
   try {
-    const res = await db.query( 
-      `SELECT 
-      numerofactura,cliente,fechaemision,fechaentrega,fechapago,
-      formapago,cheque,recibo,observaciones 
-      FROM facturas WHERE numerofactura = '${numerofactura}'` 
-    );
-    return res
+    const res = await pool.query(`SELECT 
+    numerofactura,cliente,fechaemision,fechaentrega,fechapago,
+    formapago,cheque,recibo,observaciones 
+    FROM facturacion.facturas WHERE numerofactura = '${numerofactura}'`)
+    return res.rows
   } catch ( err ) {
     console.log("ERROR:",err)
   } finally {
@@ -82,11 +65,9 @@ const insertFactura = async({
 
   if(res.length == 0) {
     try {
-      const res = await db.query( 
-        `INSERT INTO facturas(numerofactura,cliente,fechaemision,fechaentrega,fechapago,formapago,cheque,recibo,observaciones) 
-        VALUES ('${numerofactura}','${cliente}','${fechaemision}','${fechaentrega}','${fechapago}','${formapago}','${cheque}','${recibo}','${observaciones}')` 
-      );
-      //console.log("ok")
+      await pool.query(`INSERT INTO facturacion.facturas(numerofactura,cliente,fechaemision,fechaentrega,fechapago,formapago,cheque,recibo,observaciones) 
+      VALUES ('${numerofactura}','${cliente}','${fechaemision}','${fechaentrega}','${fechapago}','${formapago}','${cheque}','${recibo}','${observaciones}')`)
+
       return {
         "message":"ok"
       }      

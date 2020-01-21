@@ -63,7 +63,7 @@ export default function Index() {
       if(message == "ok"){
         setAccess(true) 
         //Router.replace("/", "/facturas", { shallow: true })
-        Router.push('/facturas')
+        Router.push('/form')
       }
       else{
         alert("Contraseña incorrecta")
