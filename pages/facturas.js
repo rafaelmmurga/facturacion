@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import moment from 'moment'
 moment.locale('es');
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,13 +21,17 @@ const Facturas = () => {
 
   const [facturas,setFacturas] = useState([])
 
-  const getFacturas = async() => {
-    const res = await fetch("/api/facturas")
-    const resp = await res.json()
-    setFacturas(resp)
-  }
-
-  getFacturas()
+  // Funciona como un componentDidMount y componentDidUpdate al mismo tiempo.
+  // Es decir, se ejecutara inmediatamente cargado el sitio sin la necesidad de un boton
+  // Y se ira actualizando al mismo tiempo que vaya cambiando su valor
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch("/api/facturas")
+      const resp = await res.json()
+      setFacturas(resp)
+    }
+    fetchData();
+  }, []);
 
   return (
     <TableContainer component={Paper}>
