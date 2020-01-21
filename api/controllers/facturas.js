@@ -18,7 +18,7 @@ const login = async({password}) => {
 }
 
 const getfacturas = async() => {
-  const res = await pool.query('SELECT * FROM facturacion.facturas ORDER BY fechaemision DESC')
+  const res = await pool.query('SELECT * FROM facturas ORDER BY fechaemision DESC')
   return res.rows
 }
 
@@ -27,7 +27,7 @@ const searchfactura = async({id}) => {
     const res = await pool.query(`SELECT 
     numerofactura,cliente,fechaemision,fechaentrega,fechapago,
     formapago,cheque,recibo,observaciones 
-    FROM facturacion.facturas WHERE numerofactura = '${id}'`)
+    FROM facturas WHERE numerofactura = '${id}'`)
     return res.rows
   } catch ( err ) {
     console.log("ERROR:",err)
@@ -41,7 +41,7 @@ const validarFactura = async(numerofactura) => {
     const res = await pool.query(`SELECT 
     numerofactura,cliente,fechaemision,fechaentrega,fechapago,
     formapago,cheque,recibo,observaciones 
-    FROM facturacion.facturas WHERE numerofactura = '${numerofactura}'`)
+    FROM facturas WHERE numerofactura = '${numerofactura}'`)
     return res.rows
   } catch ( err ) {
     console.log("ERROR:",err)
@@ -65,7 +65,7 @@ const insertFactura = async({
 
   if(res.length == 0) {
     try {
-      await pool.query(`INSERT INTO facturacion.facturas(numerofactura,cliente,fechaemision,fechaentrega,fechapago,formapago,cheque,recibo,observaciones) 
+      await pool.query(`INSERT INTO facturas(numerofactura,cliente,fechaemision,fechaentrega,fechapago,formapago,cheque,recibo,observaciones) 
       VALUES ('${numerofactura}','${cliente}','${fechaemision}','${fechaentrega}','${fechapago}','${formapago}','${cheque}','${recibo}','${observaciones}')`)
 
       return {
